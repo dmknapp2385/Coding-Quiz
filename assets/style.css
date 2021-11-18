@@ -1,0 +1,12 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    background-color: aqua;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.highscores {
+    font-weight: lighter;
+    font-size: 22px;
+}
