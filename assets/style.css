@@ -1,10 +1,16 @@
+:root {
+    --primary: #ffccff;
+    --secondary: #497980;
+}
+
 * {
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
-    background-color: aqua;
+    background-color: var(--primary);
     font-family: 'Times New Roman', Times, serif;
 }
+
 
 header {
     font-weight: lighter;
@@ -26,6 +32,30 @@ header {
     justify-content: center;
 }
 
+
+.btn {
+    outline: none;
+    border: none;
+    display: inline-block;
+    padding: 10px 15px;
+    background: var(--secondary);
+    font-size: .9rem;
+    border-radius: 12px;
+    position: relative;
+    top: -3px;
+    box-shadow: 0 3px gray;
+    transition: transform 1s;
+  }
+
+.btn:active {
+    transform: scale(.98);
+}
+
+.btn:hover {
+    box-shadow: 0 3px white;
+}
+
+
 footer {
     border-top: solid 3px gray;
     width: auto;
@@ -36,8 +66,18 @@ footer {
     position: relative;
 }
 
+
+
 footer > * {
     position: absolute;
     right: 45%;
     color: rgba(176, 176, 176, .8);
+}
+
+.correct {
+    display: none;
+}
+ 
+.wrong {
+    display: none;
 }
