@@ -1,9 +1,65 @@
-var question = document.querySelector("h1[name='question'");
-var buttons = document.querySelector(".button-box");
-var button = document.querySelector('.btn');
+var questionHolder = document.querySelector("h1[name='question'");
+var buttonsDiv = document.querySelector(".button-box");
 var timer = document.querySelector(".timer span");
-console.log(timer);
 var countdown = 75;
+
+// array of questions and answers
+var questionArry = [
+    {
+        question: "What is the HTML element for the largest heading?",
+        type: "Multiple Choice",
+        answers: [
+            {
+                answer: "h1", 
+                isCorrect: true
+            },
+            {
+                answer: "div",
+                isCorrect: false
+            }, 
+            {
+                answer: "h3",
+                isCorrect: false
+            }, 
+            {
+                answer: "header",
+                isCorrect: false
+            }, 
+            
+        ]
+    }, 
+    {
+        question: "Git merge is the same thing as git pull.",
+        type: "trueFalse"
+    },
+    {
+        question: "What is not a transform property in CSS?", 
+        type: "Multiple Choice", 
+        answers: [
+            {
+                answer: "Rotate", 
+                value: false
+            }, 
+            {
+                answer: "Translate", 
+                value: false
+            },
+            {
+                answer: "Scale", 
+                value: false
+            },
+            {
+                answer: "Skew", 
+                value: false
+            },
+            {
+                answer: "Transition", 
+                value: true
+            }
+
+        ]
+    }
+]
 
 // timer function to start countdown after start quiz button pushed
 function startClock () {
@@ -23,6 +79,46 @@ var penalize = function () {
     countdown -= 10;
 }
 
+// for loop to iterate through quiz questions
+
+var questionGenerator = function (arrayNumber) {
+    if (questionArry[arrayNumber].type === "Multiple Choice") {
+        multipleChoice(questionArry[arrayNumber]);
+    }
+    else if (questionArry[arrayNumber].type === "trueFalse") {
+        //true false question generator
+    }
+}
+
+// multiple choice function
+var multipleChoice = function (questionobj) {
+    var question = questionobj;
+    //Insert question into browswer
+    questionHolder.textContent = question.question;
+    var answerArry = question.answers;
+    var newAnswerArry = [];
+    // randomize order of answers
+    while (answerArry.length > 0) {
+        var randomAnswerOrder = Math.floor(Math.random() * answerArry.length);
+        newAnswerArry.push(answerArry[randomAnswerOrder]);
+        answerArry.splice(randomAnswerOrder, 1);
+    }
+    console.log("newAnswerArry", JSON.stringify(newAnswerArry));
+    createButtons(newAnswerArry);
+}
+
+// create buttons for answers
+
+var createButtons = function (arrayobj) {
+    for (var i = 0; i < arrayobj.length; i++) {
+        var buttonEl = document.createElement("button");
+        buttonEl.className = "btn answer-bt";
+        buttonEl.setAttribute("data-is-correct", arrayobj.isCorrect);
+        buttonEl.textContent = (i + 1) + ": " + arrayobj.answer;
+        buttonsDiv.appendChild(buttonEl);
+    }
+}
+
 
 // fucntion to handle any click on quiz buttons
 var buttonHandler = function (event) {
@@ -30,20 +126,19 @@ var buttonHandler = function (event) {
     if (clickedButton.matches(".start-bt")) {
         var introP = document.querySelector(".heading p");
         introP.remove();
+        var startButton = document.querySelector(".start-bt");
+        startButton.remove();
         startClock();
-        questionGenerator();
-        answerButtons(); 
+        questionGenerator(0); 
         }
     else if (clickedButton.matches(".answer-bt")) {
 
     }
 }
     
-// start function that will turn p in section invisible 
 
-// question function to pring question
 
 //button function to generate and style answer buttons
 
 //endQuiz funcitonto pop up high score and initial data storage
-buttons.addEventListener("click", buttonHandler);
+buttonsDiv.addEventListener("click", buttonHandler);

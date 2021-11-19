@@ -42,20 +42,29 @@ header {
     max-width: 5vw;
 }
 
+.button-box {
+    display: grid;
+    grid-template-rows: 1fr;
+}
+
 
 .btn {
     outline: none;
     border: none;
-    display: inline-block;
     padding: 10px 15px;
     background: var(--secondary);
     font-size: .9rem;
     border-radius: 12px;
-    position: relative;
     top: -3px;
     box-shadow: 0 3px gray;
     transition: transform 1s;
-  }
+}
+
+.answer-bt {
+    margin: 25px;
+    min-width: 200px;
+
+} */
 
 .btn:active {
     transform: scale(.98);
