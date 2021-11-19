@@ -6,7 +6,38 @@
     font-family: 'Times New Roman', Times, serif;
 }
 
-.highscores {
+header {
     font-weight: lighter;
-    font-size: 22px;
+    font-size: 15px;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    margin-bottom: 15%;
+}
+
+.timer {
+    margin-right: 15px;
+}
+
+.heading >* {
+    text-align: center;
+    margin: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+footer {
+    border-top: solid 3px gray;
+    width: auto;
+    margin: 10vw;
+    font-size: 30px;
+    font-style: italic;
+    text-align: center;
+    position: relative;
+}
+
+footer > * {
+    position: absolute;
+    right: 45%;
+    color: rgba(176, 176, 176, .8);
 }
