@@ -58,6 +58,11 @@ header {
     top: -3px;
     box-shadow: 0 3px gray;
     transition: transform 1s;
+    text-align: left;
+}
+
+.start-bt {
+    text-align: center;
 }
 
 .answer-bt {

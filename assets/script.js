@@ -2,6 +2,7 @@ var questionHolder = document.querySelector("h1[name='question'");
 var buttonsDiv = document.querySelector(".button-box");
 var timer = document.querySelector(".timer span");
 var countdown = 75;
+var questionNumber = 0
 
 // array of questions and answers
 var questionArry = [
@@ -81,11 +82,11 @@ var penalize = function () {
 
 // for loop to iterate through quiz questions
 
-var questionGenerator = function (arrayNumber) {
-    if (questionArry[arrayNumber].type === "Multiple Choice") {
-        multipleChoice(questionArry[arrayNumber]);
+var questionGenerator = function (questionNumber) {
+    if (questionArry[questionNumber].type === "Multiple Choice") {
+        multipleChoice(questionArry[questionNumber]);
     }
-    else if (questionArry[arrayNumber].type === "trueFalse") {
+    else if (questionArry[questionNumber].type === "trueFalse") {
         //true false question generator
     }
 }
@@ -100,21 +101,29 @@ var multipleChoice = function (questionobj) {
     // randomize order of answers
     while (answerArry.length > 0) {
         var randomAnswerOrder = Math.floor(Math.random() * answerArry.length);
-        newAnswerArry.push(answerArry[randomAnswerOrder]);
+        newAnswerArry.push(
+            {
+                answer:answerArry[randomAnswerOrder].answer,
+                isCorrect: answerArry[randomAnswerOrder].isCorrect
+            }
+        );
         answerArry.splice(randomAnswerOrder, 1);
     }
-    console.log("newAnswerArry", JSON.stringify(newAnswerArry));
+
     createButtons(newAnswerArry);
 }
 
 // create buttons for answers
 
 var createButtons = function (arrayobj) {
-    for (var i = 0; i < arrayobj.length; i++) {
+    var answersArray = arrayobj
+    for (var i = 0; i < answersArray.length; i++) {
+        var answer = answersArray[i].answer
+        var isCorrect = answersArray[i].isCorrect
         var buttonEl = document.createElement("button");
         buttonEl.className = "btn answer-bt";
-        buttonEl.setAttribute("data-is-correct", arrayobj.isCorrect);
-        buttonEl.textContent = (i + 1) + ": " + arrayobj.answer;
+        buttonEl.setAttribute("data-is-correct", isCorrect);
+        buttonEl.textContent = (i + 1) + ": " + answer;
         buttonsDiv.appendChild(buttonEl);
     }
 }
