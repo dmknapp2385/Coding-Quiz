@@ -1,7 +1,7 @@
 var questionHolder = document.querySelector("h1[name='question'");
 var buttonsDiv = document.querySelector(".button-box");
 var timer = document.querySelector(".timer span");
-var countdown = 700;
+var countdown = 40;
 var questionNumber = 0;
 var score = 0;
 
@@ -230,7 +230,12 @@ function startClock () {
 
 // function to remove 10 seconds from timer for incorrect answers
 var penalize = function () {
-    countdown -= 10;
+    if (countdown > 10) {
+        countdown -= 10;
+    }
+    else{
+        endQuiz();
+    }
 }
 
 // for loop to iterate through quiz questions
@@ -240,8 +245,6 @@ var questionGenerator = function (questionNumber) {
     questionHolder.textContent = "";
     buttonsDiv.innerHTML = "";
     if (questionNumber < questionArry.length) {
-        console.log(questionArry.length);
-        console.log(questionNumber);
          //insert question into browser
         var questionSelected = questionArry[questionNumber]
         questionHolder.textContent = questionSelected.question;
@@ -300,6 +303,7 @@ var buttonHandler = function (event) {
             correct.textContent = "Correct!";
             questionNumber++;
             score++;
+            console.log(score);
             questionGenerator(questionNumber);
         }
 
@@ -307,18 +311,31 @@ var buttonHandler = function (event) {
             wrong.textContent = "Wrong!";
             penalize();
         }
-
-    }
 }
 
 // end quiz function to store high score
  var endQuiz = function () {
-     countdown = 0;
+     timer.textContent = "";
+     var highscore = score;
+     buttonsDiv.remove();
      var footer = document.querySelector("footer");
      footer.innerHTML = "";
+     questionHolder.innerHTML = "The quiz has ended. <br> You got a score of " + highscore + " . <br> Please enter your initials to save your score."
+     var scorediv = document.querySelector(".score");
+     scorediv.removeAttribute("stlye");
+     // get value from input on click for class save-score
+ }
 
+ var saveScore = function () {
+     // function to save initials and high score
  }
     
+var highScoreList = function () {
+    //function to retrieve stored arrays of initials and high scores
+}
 
 //endQuiz funcitonto pop up high score and initial data storage
 buttonsDiv.addEventListener("click", buttonHandler);
+var endQuizBox = document.querySelector(".scores")
+var highScore = document.querySelector(".high-scores");
+highscore.addEventListener("click", highScoreList);
