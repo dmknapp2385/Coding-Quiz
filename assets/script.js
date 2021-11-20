@@ -218,7 +218,7 @@ var questionArry = [
 // timer function to start countdown after start quiz button pushed
 function startClock () {
     var startClock = setInterval(function(){
-        if (countdown >0 ) {
+        if (countdown > 0 ) {
         timer.textContent = countdown; 
         countdown--;
         }
@@ -295,7 +295,7 @@ var buttonHandler = function (event) {
         startButton.remove();
         startClock();
         questionGenerator(questionNumber); 
-        }
+    }
     //answer buttons
     else if (clickedButton.matches(".answer-bt")) {
 
@@ -303,16 +303,15 @@ var buttonHandler = function (event) {
             correct.textContent = "Correct!";
             questionNumber++;
             score++;
-            console.log(score);
-            questionGenerator(questionNumber);
+             questionGenerator(questionNumber);
         }
 
         else {
             wrong.textContent = "Wrong!";
             penalize();
         }
+    }
 }
-
 // end quiz function to store high score
  var endQuiz = function () {
      timer.textContent = "";
@@ -323,19 +322,25 @@ var buttonHandler = function (event) {
      questionHolder.innerHTML = "The quiz has ended. <br> You got a score of " + highscore + " . <br> Please enter your initials to save your score."
      var scorediv = document.querySelector(".score");
      scorediv.removeAttribute("stlye");
-     // get value from input on click for class save-score
+     scorediv.setAttribute("stlye", "display:visible")
+     document.querySelector(".score button")
+
  }
 
  var saveScore = function () {
-     // function to save initials and high score
+    var initiaslInput = document.querySelector("input[name='initials]").value;
+    localStorage.setItem(initiaslInput, highScore);
+    // get value from input on click for class save-score
  }
-    
+
+ 
 var highScoreList = function () {
     //function to retrieve stored arrays of initials and high scores
 }
 
 //endQuiz funcitonto pop up high score and initial data storage
 buttonsDiv.addEventListener("click", buttonHandler);
-var endQuizBox = document.querySelector(".scores")
-var highScore = document.querySelector(".high-scores");
-highscore.addEventListener("click", highScoreList);
+// var endQuizBox = document.querySelector(".scores");
+// endQuizBox.addEventListener("submit", saveScore);
+// var highScore = document.querySelector(".high-scores");
+// highscore.addEventListener("click", highScoreList);
