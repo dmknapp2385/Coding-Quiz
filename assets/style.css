@@ -18,7 +18,7 @@ header {
     display: flex;
     justify-content: space-between;
     padding: 15px;
-    margin-bottom: 15%;
+    margin-bottom: 8%;
     position: relative;
 }
 
@@ -29,6 +29,9 @@ header {
 .timer span {
     position: absolute;
     right: 0.7rem;
+}
+main {
+    margin-bottom: 10px;
 }
 
 .heading >* {
@@ -66,10 +69,10 @@ header {
 }
 
 .answer-bt {
-    margin: 25px;
+    margin: 10px;
     min-width: 200px;
 
-} */
+} 
 
 .btn:active {
     transform: scale(.98);
@@ -83,7 +86,7 @@ header {
 footer {
     border-top: solid 3px gray;
     width: auto;
-    margin: 10vw;
+    margin: 0 10vw 10vh 10vw;
     font-size: 30px;
     font-style: italic;
     text-align: center;
@@ -98,10 +101,3 @@ footer > * {
     color: rgba(176, 176, 176, .8);
 }
 
-.correct {
-    display: none;
-}
- 
-.wrong {
-    display: none;
-}
