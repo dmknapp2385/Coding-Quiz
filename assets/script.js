@@ -1,7 +1,7 @@
 var questionHolder = document.querySelector("h1[name='question'");
 var buttonsDiv = document.querySelector(".button-box");
 var timer = document.querySelector(".timer span");
-var countdown = 75;
+var countdown = 700;
 var questionNumber = 0;
 var score = 0;
 
@@ -50,25 +50,167 @@ var questionArry = [
         answers: [
             {
                 answer: "Rotate", 
-                value: false
+                isCorrect: false
             }, 
             {
                 answer: "Translate", 
-                value: false
+                isCorrect: false
             },
             {
                 answer: "Scale", 
-                value: false
+                isCorrect: false
             },
             {
                 answer: "Skew", 
-                value: false
+                isCorrect: false
             },
             {
                 answer: "Transition", 
-                value: true
+                isCorrect: true
             }
 
+        ]
+    },
+    {
+        question: "What symbol is used to designate an array in JavaScript?", 
+        type: "Multiple Choice", 
+        answers: [
+            {
+                answer: "{}", 
+                isCorrect: false
+            }, 
+            {
+                answer: "()", 
+                isCorrect: false
+            },
+            {
+                answer: ":", 
+                isCorrect: false
+            },
+            {
+                answer: "[]", 
+                isCorrect: true
+            },
+        ]
+    },
+    {
+        question: "What is an example of an HTML tag", 
+        type: "Multiple Choice", 
+        answers: [
+            {
+                answer: "<p>", 
+                isCorrect: true
+            }, 
+            {
+                answer: "<h1>This is a Heading</h1>", 
+                isCorrect: false
+            },
+            {
+                answer: ".class", 
+                isCorrect: false
+            },
+            {
+                answer: "#id", 
+                isCorrect: false
+            },
+        ]
+    },
+    {
+        question: "What is not an HTML attribute?", 
+        type: "Multiple Choice", 
+        answers: [
+            {
+                answer: "src", 
+                isCorrect: false
+            }, 
+            {
+                answer: "href", 
+                isCorrect: false
+            },
+            {
+                answer: "style", 
+                isCorrect: false
+            },
+            {
+                answer: "class", 
+                isCorrect: false
+            },
+            {
+                answer: "h1", 
+                isCorrect: true
+            }
+        ]
+    },
+    {
+        question: "'var myFun = function ()' is an example of a function expression.", 
+        type: "trueFalse", 
+        answers: [
+            {
+                answer: "True", 
+                isCorrect: true
+            }, 
+            {
+                answer: "False", 
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        question: "What symbols designate a comment in JavaScript", 
+        type: "Multiple Choice", 
+        answers: [
+            {
+                answer: "//", 
+                isCorrect: true
+            }, 
+            {
+                answer: "/*", 
+                isCorrect: false
+            },
+            {
+                answer: "<-- -->", 
+                isCorrect: false
+            },
+            {
+                answer: "||", 
+                isCorrect: false
+            },
+        ]
+    },
+    {
+        question: "True or False are called boolean values.", 
+        type: "trueFalse", 
+        answers: [
+            {
+                answer: "True", 
+                isCorrect: true
+            }, 
+            {
+                answer: "False", 
+                isCorrect: false
+            },
+        ]
+    },
+    {
+        question: "What is the name for a function that is specific to a certain object?", 
+        type: "Multiple Choice", 
+        answers: [
+            {
+                answer: "Method", 
+                isCorrect: true
+            }, 
+            {
+                answer: "Property", 
+                isCorrect: false
+            },
+            {
+                answer: "Variable", 
+                isCorrect: false
+            },
+            {
+                answer: "Object Function", 
+                isCorrect: false
+            },
         ]
     }
 ]
@@ -97,19 +239,26 @@ var questionGenerator = function (questionNumber) {
     //make sure question holder and buttons cleared
     questionHolder.textContent = "";
     buttonsDiv.innerHTML = "";
-    //insert question into browser
-    var questionSelected = questionArry[questionNumber]
-    questionHolder.textContent = questionSelected.question;
-    //generate answer buttons
-    var answerArry = questionSelected.answers;
-    var newAnswerArry = [];
-    //randomize answer order
-    while (answerArry.length > 0) {
-        var randomAnswerOrder = Math.floor(Math.random() * answerArry.length);
-        newAnswerArry.push(answerArry[randomAnswerOrder]);
-        answerArry.splice(randomAnswerOrder, 1);
+    if (questionNumber < questionArry.length) {
+        console.log(questionArry.length);
+        console.log(questionNumber);
+         //insert question into browser
+        var questionSelected = questionArry[questionNumber]
+        questionHolder.textContent = questionSelected.question;
+        //generate answer buttons
+        var answerArry = questionSelected.answers;
+        var newAnswerArry = [];
+        //randomize answer order
+        while (answerArry.length > 0) {
+            var randomAnswerOrder = Math.floor(Math.random() * answerArry.length);
+            newAnswerArry.push(answerArry[randomAnswerOrder]);
+            answerArry.splice(randomAnswerOrder, 1);
+        }
+        createButtons(newAnswerArry);
     }
-    createButtons(newAnswerArry);
+    else {
+        endQuiz();
+    }
 }
 
 // create buttons for answers
@@ -133,7 +282,7 @@ var buttonHandler = function (event) {
     var correct = document.querySelector(".correct");
     var wrong = document.querySelector(".wrong");
     // make sure cleared before next button
-    correct.textContent = '';
+    correct.textContent = "";
     wrong.textContent = "";
     //start button
     if (clickedButton.matches(".start-bt")) {
@@ -150,6 +299,7 @@ var buttonHandler = function (event) {
         if (clickedButton.dataset.isCorrect === 'true') {
             correct.textContent = "Correct!";
             questionNumber++;
+            score++;
             questionGenerator(questionNumber);
         }
 
@@ -160,6 +310,14 @@ var buttonHandler = function (event) {
 
     }
 }
+
+// end quiz function to store high score
+ var endQuiz = function () {
+     countdown = 0;
+     var footer = document.querySelector("footer");
+     footer.innerHTML = "";
+
+ }
     
 
 //endQuiz funcitonto pop up high score and initial data storage
