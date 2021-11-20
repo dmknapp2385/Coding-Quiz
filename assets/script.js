@@ -94,6 +94,9 @@ var penalize = function () {
 // for loop to iterate through quiz questions
 
 var questionGenerator = function (questionNumber) {
+    //make sure question holder and buttons cleared
+    questionHolder.textContent = "";
+    buttonsDiv.innerHTML = "";
     //insert question into browser
     var questionSelected = questionArry[questionNumber]
     questionHolder.textContent = questionSelected.question;
@@ -147,6 +150,7 @@ var buttonHandler = function (event) {
         if (clickedButton.dataset.isCorrect === 'true') {
             correct.textContent = "Correct!";
             questionNumber++;
+            questionGenerator(questionNumber);
         }
 
         else {
