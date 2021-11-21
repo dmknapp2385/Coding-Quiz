@@ -4,6 +4,7 @@ var timer = document.querySelector(".timer span");
 var countdown = 40;
 var questionNumber = 0;
 var score = 0;
+var highScore = document.querySelector(".high-scores");
 
 // array of questions and answers
 var questionArry = [
@@ -321,18 +322,20 @@ var buttonHandler = function (event) {
      footer.innerHTML = "";
      questionHolder.innerHTML = "The quiz has ended. <br> You got a score of " + highscore + " . <br> Please enter your initials to save your score."
      var scorediv = document.querySelector(".score");
-     scorediv.removeAttribute("stlye");
-     scorediv.setAttribute("stlye", "display:visible")
-     document.querySelector(".score button")
-
+     scorediv.stlye.display = "visible";
+     scorediv.addEventListener("submit", saveScore);
  }
 
- var saveScore = function () {
-    var initiaslInput = document.querySelector("input[name='initials]").value;
-    localStorage.setItem(initiaslInput, highScore);
-    // get value from input on click for class save-score
+ var saveScore = function (event) {
+     // event.preventDefault();
+     var saveScoreButton = event.target
+     if (saveScoreButton.matches(".save-score")) {
+        var highscore = score;
+        var initiaslInput = document.querySelector("input[name='initials]").value;
+        localStorage.setItem(initiaslInput, highScore);
+     }
+     
  }
-
  
 var highScoreList = function () {
     //function to retrieve stored arrays of initials and high scores
@@ -340,7 +343,4 @@ var highScoreList = function () {
 
 //endQuiz funcitonto pop up high score and initial data storage
 buttonsDiv.addEventListener("click", buttonHandler);
-// var endQuizBox = document.querySelector(".scores");
-// endQuizBox.addEventListener("submit", saveScore);
-// var highScore = document.querySelector(".high-scores");
-// highscore.addEventListener("click", highScoreList);
+highscore.addEventListener("click", highScoreList);
