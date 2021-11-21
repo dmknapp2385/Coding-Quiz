@@ -323,7 +323,7 @@ var buttonHandler = function (event) {
      questionHolder.innerHTML = "The quiz has ended. <br> You got a score of " + highscore + " . <br> Please enter your initials to save your score."
      var scorediv = document.querySelector(".score");
      scorediv.style.display = "block";
-     scorediv.addEventListener("submit", saveScore);
+     scorediv.addEventListener("click", saveScore);
  }
 
  var saveScore = function (event) {
@@ -344,4 +344,4 @@ var highScoreList = function (event) {
 }
 
 buttonsDiv.addEventListener("click", buttonHandler);
-highscore.addEventListener("click", highScoreList);
+highScore.addEventListener("click", highScoreList);
