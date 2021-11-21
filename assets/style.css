@@ -20,10 +20,13 @@ header {
     padding: 15px;
     margin-bottom: 8%;
     position: relative;
+    /* Make sticky */
 }
+
 
 .high-scores:hover {
     color: var(--secondary);
+    /* add pointer */
 }
 
 .timer {

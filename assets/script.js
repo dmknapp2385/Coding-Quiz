@@ -5,6 +5,7 @@ var countdown = 40;
 var questionNumber = 0;
 var score = 0;
 var highScore = document.querySelector(".high-scores");
+var scoresArray = [];
 
 // array of questions and answers
 var questionArry = [
@@ -315,12 +316,11 @@ var buttonHandler = function (event) {
 }
 // end quiz function to store high score
  var endQuiz = function () {
-     timer.textContent = "";
-     var highscore = score;
+     timer.remove();
      buttonsDiv.remove();
      var footer = document.querySelector("footer");
      footer.innerHTML = "";
-     questionHolder.innerHTML = "The quiz has ended. <br> You got a score of " + highscore + " . <br> Please enter your initials to save your score."
+     questionHolder.innerHTML = "The quiz has ended. <br> You got a score of " + score + " . <br> Please enter your initials to save your score."
      var scorediv = document.querySelector(".score");
      scorediv.style.display = "block";
      scorediv.addEventListener("click", saveScore);
@@ -330,17 +330,32 @@ var buttonHandler = function (event) {
      event.preventDefault();
      var saveScoreButton = event.target
      if (saveScoreButton.matches(".save-score")) {
-        var highscore = score;
-        var initiaslInput = document.querySelector("input[name='initials]").value;
-        var scoreObject = {Initials: initiaslInput, Score:highScore}
-        localStorage.setItem("Scores", scoreObject);
+        console.log(score);
+        var initiaslInput = document.querySelector("input[name='initials']").value;
+        console.log(initiaslInput);
+        var scoreObject = {Initials: initiaslInput, Score:score}
+        scoresArray.push(scoreObject);
+        console.log(scoresArray);
+        alert("Your score has been saved!")
+        localStorage.setItem("Scores", JSON.stringify(scoreObject));
      }
      
  }
  
  // High score button to show highscore
 var highScoreList = function (event) {
-    event.localStorage.getItem("Scores");  
+    var retrievedScores = localStorage.getItem("Scores");
+    var retrieved = JSON.parse(retrievedScores);
+
+    if (!retrieved) {
+        alert("No Scores Saved");
+    }
+    else {
+        for (var i = 0; i <retrieved.length; i++){
+            scoresArray.push(retrieved[i]);
+        }
+        alert(JSON.stringify(scoresArray));
+    }
 }
 
 buttonsDiv.addEventListener("click", buttonHandler);
