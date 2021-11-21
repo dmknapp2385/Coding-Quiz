@@ -322,25 +322,26 @@ var buttonHandler = function (event) {
      footer.innerHTML = "";
      questionHolder.innerHTML = "The quiz has ended. <br> You got a score of " + highscore + " . <br> Please enter your initials to save your score."
      var scorediv = document.querySelector(".score");
-     scorediv.stlye.display = "visible";
+     scorediv.style.display = "block";
      scorediv.addEventListener("submit", saveScore);
  }
 
  var saveScore = function (event) {
-     // event.preventDefault();
+     event.preventDefault();
      var saveScoreButton = event.target
      if (saveScoreButton.matches(".save-score")) {
         var highscore = score;
         var initiaslInput = document.querySelector("input[name='initials]").value;
-        localStorage.setItem(initiaslInput, highScore);
+        var scoreObject = {Initials: initiaslInput, Score:highScore}
+        localStorage.setItem("Scores", scoreObject);
      }
      
  }
  
-var highScoreList = function () {
-    //function to retrieve stored arrays of initials and high scores
+ // High score button to show highscore
+var highScoreList = function (event) {
+    event.localStorage.getItem("Scores");  
 }
 
-//endQuiz funcitonto pop up high score and initial data storage
 buttonsDiv.addEventListener("click", buttonHandler);
 highscore.addEventListener("click", highScoreList);
