@@ -23,6 +23,11 @@ header {
     /* Make sticky */
 }
 
+.high-scores {
+    text-decoration: none;
+    border: none;
+}
+
 
 .high-scores:hover {
     color: var(--secondary);
@@ -106,7 +111,7 @@ main {
     color: black;
     display: grid;
     grid-template-columns: 10% 10%;
-    text-align: justify;
+    text-align: center;
     border: 3px soid grey;
 }
 
@@ -119,6 +124,7 @@ main {
 .score-buttons {
     margin-top: 25px;
     display: flex;
+    margin: auto;
 }
 .score-buttons > * {
     margin-right: 15px;

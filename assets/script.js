@@ -349,11 +349,16 @@ var buttonHandler = function (event) {
  var saveScore = function (event) {
      var saveScoreButton = event.target
      if (saveScoreButton.matches(".save-score")) {
-        var initiaslInput = document.querySelector("input[name='initials']").value;
-        var scoreObject = {initials: initiaslInput, score:score}
+        var initialsInput = document.querySelector("input[name='initials']").value;
+        // if (!initialsInput) {
+        //     alert("Please enter your initials");
+        //     endQuiz();
+        // }
+        var scoreObject = {initials: initialsInput, score:score}
         scoresArray.push(scoreObject);
         alert("Your score has been saved!")
         localStorage.setItem("Scores", JSON.stringify(scoresArray));
+
      }
  }
  
