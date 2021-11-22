@@ -358,7 +358,7 @@ var buttonHandler = function (event) {
  }
  
  // High score button to show highscore
-var highScoreList = function (event) {
+function highScoreList (event) {
     var highScoreButton = event.target;
     if (!scoresArray) {
         alert("No scores saved.");
@@ -390,9 +390,6 @@ var highScoreList = function (event) {
         scoreButtonsDiv.className="score-buttons"
         var backButton = document.createElement("button");
         backButton.className = 'btn back-btn';
-        var backButtonLink = document.createElement ("a");
-        backButtonLink.href = "index.html";
-        backButton.appendChild(backButtonLink);
         backButton.textContent = "Back"
         scoreButtonsDiv.appendChild(backButton);
         var clearButton = document.createElement('button');
@@ -400,8 +397,22 @@ var highScoreList = function (event) {
         clearButton.textContent = "Clear Scores";
         scoreButtonsDiv.appendChild(clearButton);
         buttonsDiv.appendChild(scoreButtonsDiv);
+        backButton.addEventListener("click", backButtonAction);
+        clearButton.addEventListener("click", clearButtonAction);
     }
 }
 
+// fucntion to reload browser on back button
+function backButtonAction (event){
+    window.location.reload();
+    return false;
+}
+
+// function to clear high scores
+function clearButtonAction (event) {
+    localStorage.clear();
+    window.location.reload();
+    return false;
+}
 buttonsDiv.addEventListener("click", buttonHandler);
 highScore.addEventListener("click", highScoreList);
