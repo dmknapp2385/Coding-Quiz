@@ -91,7 +91,6 @@ main {
 
 .score form input {
     outline: none;
-    border: none;
     padding: 12px;
     width: 50%;
     font-size: 2.2rem;
@@ -100,6 +99,30 @@ main {
     display: inline-block;
     margin-right: 20px;
       
+}
+
+.score-list {
+    margin: auto;
+    color: black;
+    display: grid;
+    grid-template-columns: 10% 10%;
+    text-align: justify;
+    border: 3px soid grey;
+}
+
+.score-list>p {
+    padding: 15px;
+    background-color: var(white
+    );
+}
+
+.score-buttons {
+    margin-top: 25px;
+    display: flex;
+}
+.score-buttons > * {
+    margin-right: 15px;
+    min-width: 8vw;
 }
 
 footer {

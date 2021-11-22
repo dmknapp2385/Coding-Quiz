@@ -7,6 +7,25 @@ var score = 0;
 var highScore = document.querySelector(".high-scores");
 var scoresArray = [];
 
+loadScores();
+
+//function that retrieves localstorage and saves in scores Array
+function loadScores () {
+    var retrievedScores = localStorage.getItem("Scores");
+     retrievedScores = JSON.parse(retrievedScores);
+
+    if (!retrievedScores) {
+        return false;
+    }
+    else {
+        for (var i = 0; i <retrievedScores.length; i++){
+            scoresArray.push(retrievedScores[i]);
+        }
+    }
+}
+
+
+
 // array of questions and answers
 var questionArry = [
     {
@@ -314,10 +333,10 @@ var buttonHandler = function (event) {
         }
     }
 }
-// end quiz function to store high score
+// end quiz function to display score and ask initials input
  var endQuiz = function () {
      timer.remove();
-     buttonsDiv.remove();
+     buttonsDiv.innerHTML= "";
      var footer = document.querySelector("footer");
      footer.innerHTML = "";
      questionHolder.innerHTML = "The quiz has ended. <br> You got a score of " + score + " . <br> Please enter your initials to save your score."
@@ -326,35 +345,61 @@ var buttonHandler = function (event) {
      scorediv.addEventListener("click", saveScore);
  }
 
+ // save function to save score and initals to scores array and local stoarge
  var saveScore = function (event) {
-     event.preventDefault();
      var saveScoreButton = event.target
      if (saveScoreButton.matches(".save-score")) {
-        console.log(score);
         var initiaslInput = document.querySelector("input[name='initials']").value;
-        console.log(initiaslInput);
-        var scoreObject = {Initials: initiaslInput, Score:score}
+        var scoreObject = {initials: initiaslInput, score:score}
         scoresArray.push(scoreObject);
-        console.log(scoresArray);
         alert("Your score has been saved!")
-        localStorage.setItem("Scores", JSON.stringify(scoreObject));
+        localStorage.setItem("Scores", JSON.stringify(scoresArray));
      }
-     
  }
  
  // High score button to show highscore
 var highScoreList = function (event) {
-    var retrievedScores = localStorage.getItem("Scores");
-    var retrieved = JSON.parse(retrievedScores);
-
-    if (!retrieved) {
-        alert("No Scores Saved");
+    var highScoreButton = event.target;
+    if (!scoresArray) {
+        alert("No scores saved.");
     }
     else {
-        for (var i = 0; i <retrieved.length; i++){
-            scoresArray.push(retrieved[i]);
+        questionHolder.textContent = "High Scores";
+        var introP = document.querySelector(".heading p");
+        introP.remove();
+        buttonsDiv.innerHTML = " ";
+        buttonsDiv.className = "score-list";
+        var highScoreHeader = document.createElement("p");
+        highScoreHeader.innerHTML = "Initials";
+        var highscoreHeadertwo = document.createElement("p");
+        highscoreHeadertwo.innerHTML = "Scores"
+        buttonsDiv.appendChild(highScoreHeader);
+        buttonsDiv.appendChild(highscoreHeadertwo);
+        for (var i = 0; i < scoresArray.length; i++) {
+            var initials = scoresArray[i].initials;
+            var savedScore = scoresArray[i].score;
+            var scoreInitalsP = document.createElement("p");
+            scoreInitalsP.textContent = initials
+            var scoreP = document.createElement('p');
+            scoreP.textContent = savedScore;
+            buttonsDiv.appendChild(scoreInitalsP);
+            buttonsDiv.appendChild(scoreP);
         }
-        alert(JSON.stringify(scoresArray));
+        //  scorebuttons dive to append to buttonsDiv
+        var scoreButtonsDiv = document.createElement('div');
+        scoreButtonsDiv.className="score-buttons"
+        var backButton = document.createElement("button");
+        backButton.className = 'btn back-btn';
+        var backButtonLink = document.createElement ("a");
+        backButtonLink.href = "index.html";
+        backButton.appendChild(backButtonLink);
+        backButton.textContent = "Back"
+        scoreButtonsDiv.appendChild(backButton);
+        var clearButton = document.createElement('button');
+        clearButton.className = 'btn clear-btn'
+        clearButton.textContent = "Clear Scores";
+        scoreButtonsDiv.appendChild(clearButton);
+        buttonsDiv.appendChild(scoreButtonsDiv);
     }
 }
 
