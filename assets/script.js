@@ -1,7 +1,7 @@
 var questionHolder = document.querySelector("h1[name='question']");
 var buttonsDiv = document.querySelector(".button-box");
 var timer = document.querySelector(".timer span");
-var countdown = 40;
+var countdown = 50;
 var questionNumber = 0;
 var score = 0;
 var highScore = document.querySelector(".high-scores");
@@ -246,8 +246,12 @@ function startClock () {
         timer.textContent = countdown; 
         countdown--;
         }
-        else {
+        else if (countdown === 0) {
+            clearInterval(startClock);
             endQuiz();
+        }
+        else if (countdown === "clear") {
+            clearInterval(startClock);
         }
     }, 1000);       
 }
@@ -284,6 +288,7 @@ var questionGenerator = function (questionNumber) {
         createButtons(newAnswerArry);
     }
     else {
+        countdown = 0;
         endQuiz();
     }
 }
@@ -339,7 +344,6 @@ var buttonHandler = function (event) {
 // end quiz function to display score and ask initials input
  var endQuiz = function () {
     document.querySelector("header").style.display = 'none';
-    timer.remove();
     footer.innerHTML = "";
     buttonsDiv.innerHTML = "";
     questionHolder.innerHTML = "The quiz has ended. <br> You got a score of " + score + " . <br> Please enter your initials to save your score."
@@ -354,12 +358,14 @@ var buttonHandler = function (event) {
         var initialsInput = document.querySelector("input[name='initials']").value;
         if (!initialsInput) {
             alert("You must enter your intials");
+            return false;
+            endQuiz();
         }
         else {
-        var scoreObject = {initials: initialsInput, score:score}
-        scoresArray.push(scoreObject);
-        alert("Your score has been saved!")
-        localStorage.setItem("Scores", JSON.stringify(scoresArray));
+            var scoreObject = {initials: initialsInput, score:score}
+            scoresArray.push(scoreObject);
+            alert("Your score has been saved!")
+            localStorage.setItem("Scores", JSON.stringify(scoresArray));
         }
      }
  }
@@ -371,7 +377,8 @@ function highScoreList (event) {
         alert("No scores saved.");
     }
     else {
-        timer.remove();
+        countdown = "clear";
+        document.querySelector("header").style.display = 'none';
         scoreDiv.innerHTML = "";
         footer.innerHTML = "";
         var introP = document.querySelector(".heading p");
@@ -381,7 +388,9 @@ function highScoreList (event) {
         buttonsDiv.className = "score-list";
         var highScoreHeader = document.createElement("p");
         highScoreHeader.innerHTML = "Initials";
+        highScoreHeader.className = "title";
         var highscoreHeadertwo = document.createElement("p");
+        highscoreHeadertwo.className = "title";
         highscoreHeadertwo.innerHTML = "Scores"
         buttonsDiv.appendChild(highScoreHeader);
         buttonsDiv.appendChild(highscoreHeadertwo);
@@ -406,7 +415,7 @@ function highScoreList (event) {
         clearButton.className = 'btn clear-btn'
         clearButton.textContent = "Clear Scores";
         scoreButtonsDiv.appendChild(clearButton);
-        buttonsDiv.appendChild(scoreButtonsDiv);
+        footer.appendChild(scoreButtonsDiv);
         backButton.addEventListener("click", backButtonAction);
         clearButton.addEventListener("click", clearButtonAction);
     }
