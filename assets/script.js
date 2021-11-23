@@ -403,6 +403,7 @@ function highScoreList (event) {
         buttonsDiv.appendChild(scoreButtonsDiv);
         backButton.addEventListener("click", backButtonAction);
         clearButton.addEventListener("click", clearButtonAction);
+        return false;
     }
 }
 
