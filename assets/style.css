@@ -74,6 +74,8 @@ main {
     box-shadow: 0 3px gray;
     transition: transform 1s;
     text-align: left;
+    color: black;
+    font-weight: bolder;
 }
 
 .start-bt {
@@ -125,6 +127,8 @@ main {
     margin-top: 25px;
     display: flex;
     margin: auto;
+    display: grid;
+    grid-template-columns: 50% 50%;
 }
 .score-buttons > * {
     margin-right: 15px;

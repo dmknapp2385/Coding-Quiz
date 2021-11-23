@@ -1,4 +1,4 @@
-var questionHolder = document.querySelector("h1[name='question'");
+var questionHolder = document.querySelector("h1[name='question']");
 var buttonsDiv = document.querySelector(".button-box");
 var timer = document.querySelector(".timer span");
 var countdown = 40;
@@ -6,6 +6,9 @@ var questionNumber = 0;
 var score = 0;
 var highScore = document.querySelector(".high-scores");
 var scoresArray = [];
+var scoreDiv = document.querySelector(".score");
+var footer = document.querySelector("footer");
+
 
 loadScores();
 
@@ -311,7 +314,7 @@ var buttonHandler = function (event) {
     //start button
     if (clickedButton.matches(".start-bt")) {
         var introP = document.querySelector(".heading p");
-        introP.remove();
+        introP.innerHTML='';
         var startButton = document.querySelector(".start-bt");
         startButton.remove();
         startClock();
@@ -324,7 +327,7 @@ var buttonHandler = function (event) {
             correct.textContent = "Correct!";
             questionNumber++;
             score++;
-             questionGenerator(questionNumber);
+            questionGenerator(questionNumber);
         }
 
         else {
@@ -335,14 +338,12 @@ var buttonHandler = function (event) {
 }
 // end quiz function to display score and ask initials input
  var endQuiz = function () {
-     timer.remove();
-     buttonsDiv.innerHTML= "";
-     var footer = document.querySelector("footer");
-     footer.innerHTML = "";
-     questionHolder.innerHTML = "The quiz has ended. <br> You got a score of " + score + " . <br> Please enter your initials to save your score."
-     var scorediv = document.querySelector(".score");
-     scorediv.style.display = "block";
-     scorediv.addEventListener("click", saveScore);
+    timer.remove();
+    footer.innerHTML = "";
+    buttonsDiv.innerHTML = "";
+    questionHolder.innerHTML = "The quiz has ended. <br> You got a score of " + score + " . <br> Please enter your initials to save your score."
+    scoreDiv.style.display = "block";
+    scoreDiv.addEventListener("click", saveScore);
  }
 
  // save function to save score and initals to scores array and local stoarge
@@ -350,29 +351,27 @@ var buttonHandler = function (event) {
      var saveScoreButton = event.target
      if (saveScoreButton.matches(".save-score")) {
         var initialsInput = document.querySelector("input[name='initials']").value;
-        // if (!initialsInput) {
-        //     alert("Please enter your initials");
-        //     endQuiz();
-        // }
         var scoreObject = {initials: initialsInput, score:score}
         scoresArray.push(scoreObject);
         alert("Your score has been saved!")
         localStorage.setItem("Scores", JSON.stringify(scoresArray));
-
      }
  }
  
  // High score button to show highscore
 function highScoreList (event) {
     var highScoreButton = event.target;
-    if (!scoresArray) {
+    timer.remove();
+    scoreDiv.innerHTML = "";
+    footer.innerHTML = "";
+    var introP = document.querySelector(".heading p");
+    introP.remove();
+    if (scoresArray === []) {
         alert("No scores saved.");
     }
     else {
         questionHolder.textContent = "High Scores";
-        var introP = document.querySelector(".heading p");
-        introP.remove();
-        buttonsDiv.innerHTML = " ";
+        buttonsDiv.innerHTML = "";
         buttonsDiv.className = "score-list";
         var highScoreHeader = document.createElement("p");
         highScoreHeader.innerHTML = "Initials";
