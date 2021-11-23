@@ -338,6 +338,7 @@ var buttonHandler = function (event) {
 }
 // end quiz function to display score and ask initials input
  var endQuiz = function () {
+    document.querySelector("header").style.display = 'none';
     timer.remove();
     footer.innerHTML = "";
     buttonsDiv.innerHTML = "";
@@ -351,25 +352,30 @@ var buttonHandler = function (event) {
      var saveScoreButton = event.target
      if (saveScoreButton.matches(".save-score")) {
         var initialsInput = document.querySelector("input[name='initials']").value;
+        if (!initialsInput) {
+            alert("You must enter your intials");
+        }
+        else {
         var scoreObject = {initials: initialsInput, score:score}
         scoresArray.push(scoreObject);
         alert("Your score has been saved!")
         localStorage.setItem("Scores", JSON.stringify(scoresArray));
+        }
      }
  }
  
  // High score button to show highscore
 function highScoreList (event) {
     var highScoreButton = event.target;
-    timer.remove();
-    scoreDiv.innerHTML = "";
-    footer.innerHTML = "";
-    var introP = document.querySelector(".heading p");
-    introP.remove();
-    if (scoresArray === []) {
+    if (scoresArray.length < 1) {
         alert("No scores saved.");
     }
     else {
+        timer.remove();
+        scoreDiv.innerHTML = "";
+        footer.innerHTML = "";
+        var introP = document.querySelector(".heading p");
+        introP.remove();
         questionHolder.textContent = "High Scores";
         buttonsDiv.innerHTML = "";
         buttonsDiv.className = "score-list";
@@ -403,7 +409,6 @@ function highScoreList (event) {
         buttonsDiv.appendChild(scoreButtonsDiv);
         backButton.addEventListener("click", backButtonAction);
         clearButton.addEventListener("click", clearButtonAction);
-        return false;
     }
 }
 
