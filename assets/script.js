@@ -288,7 +288,6 @@ var questionGenerator = function (questionNumber) {
         createButtons(newAnswerArry);
     }
     else {
-        countdown = 0;
         endQuiz();
     }
 }
@@ -343,6 +342,7 @@ var buttonHandler = function (event) {
 }
 // end quiz function to display score and ask initials input
  var endQuiz = function () {
+    countdown = "clear";
     document.querySelector("header").style.display = 'none';
     footer.innerHTML = "";
     buttonsDiv.innerHTML = "";
