@@ -1,6 +1,6 @@
 :root {
-    --primary: #ffccff;
-    --secondary: #497980;
+    --primary: #f5eff5;
+    --secondary: #cf36b6;
 }
 
 * {
@@ -26,6 +26,7 @@ header {
 .high-scores {
     text-decoration: none;
     border: none;
+    font-size: 18px;
 }
 
 
@@ -36,11 +37,13 @@ header {
 
 .timer {
     margin-right: 20px;
+    font-size: 18px;
 }
 
 .timer span {
     position: absolute;
     right: 0.7rem;
+    font-size: 18px;
 }
 main {
     margin-bottom: 10px;
@@ -69,13 +72,18 @@ main {
     padding: 3px 15px;
     background: var(--secondary);
     font-size: .9rem;
-    border-radius: 12px;
+    border-radius: 4px;
     top: -3px;
     box-shadow: 0 3px gray;
     transition: transform 1s;
     text-align: left;
     color: black;
     font-weight: bolder;
+    height: 35px;
+}
+
+.btn:hover {
+    background-color: rgb(175, 112, 233);
 }
 
 .start-bt {
@@ -84,8 +92,7 @@ main {
 
 .answer-bt {
     margin: 10px;
-    min-width: 200px;
-
+    min-width: 175px;
 } 
 
 .btn:active {
