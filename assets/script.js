@@ -355,10 +355,9 @@ var buttonHandler = function (event) {
  var saveScore = function (event) {
      var saveScoreButton = event.target
      if (saveScoreButton.matches(".save-score")) {
-        var initialsInput = document.querySelector("input[name='initials']").value;
+        var initialsInput = document.querySelector(".textarea").value;
         if (!initialsInput) {
             alert("You must enter your intials");
-            return false;
             endQuiz();
         }
         else {
@@ -366,6 +365,7 @@ var buttonHandler = function (event) {
             scoresArray.push(scoreObject);
             alert("Your score has been saved!")
             localStorage.setItem("Scores", JSON.stringify(scoresArray));
+            location.reload();
         }
      }
  }
